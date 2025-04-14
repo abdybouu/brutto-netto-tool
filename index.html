@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kostenloser Brutto-Netto-Rechner für Selbstständige und Freiberufler in Deutschland. Einfach, schnell & mobil optimiert." />
+  <meta name="keywords" content="Brutto Netto Rechner, Selbstständige, Steuerrechner, 2025, Deutschland" />
+  <meta name="author" content="Dein Name oder Marke" />
+  <title>Brutto-Netto-Rechner 2025 für Selbstständige</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
+    <h1 class="text-2xl font-bold mb-4">Brutto-Netto-Rechner 2025</h1><p class="mb-4 text-sm text-gray-600">Berechne schnell und einfach Deinen Nettobetrag aus dem Bruttowert. Ideal für Selbstständige, Freelancer & Kleinunternehmer in Deutschland.</p>
+
+<label class="block mb-2">Bruttobetrag in Euro:</label>
+<input type="number" id="brutto" placeholder="z. B. 1000" class="w-full mb-4 p-2 border rounded" />
+
+<label class="block mb-2">Mehrwertsteuersatz:</label>
+<select id="steuer" class="w-full mb-4 p-2 border rounded">
+  <option value="19">19% (Standard)</option>
+  <option value="7">7% (ermäßigt)</option>
+</select>
+
+<button onclick="berechnen()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Berechnen</button>
+
+<div id="ergebnis" class="mt-6 text-lg font-medium text-green-700"></div>
+
+<div class="mt-8 p-4 bg-green-50 border-l-4 border-green-400">
+  <h2 class="font-semibold">Tipp: Buchhaltung automatisieren</h2>
+  <p class="text-sm">Teste <a href="https://sevdesk.de?ref=DEINCODE" target="_blank" class="underline text-blue-700">sevDesk</a> kostenlos. Perfekt für Selbstständige und Kleinunternehmer. <strong>Affiliate-Link</strong></p>
+</div>
+
+  </div>  <footer class="text-center text-xs text-gray-500 mt-10 mb-4">
+    &copy; 2025 BruttoNettoTool.de – Alle Rechte vorbehalten
+  </footer>  <script>
+    function berechnen() {
+      const brutto = parseFloat(document.getElementById("brutto").value);
+      const steuer = parseFloat(document.getElementById("steuer").value);
+
+      if (isNaN(brutto) || brutto <= 0) {
+        alert("Bitte einen gültigen Bruttobetrag eingeben.");
+        return;
+      }
+
+      const netto = brutto / (1 + steuer / 100);
+      const steuerBetrag = brutto - netto;
+
+      document.getElementById("ergebnis").innerHTML = `
+        <p>Nettobetrag: <strong>${netto.toFixed(2)} €</strong></p>
+        <p>Mehrwertsteuer: <strong>${steuerBetrag.toFixed(2)} €</strong></p>
+      `;
+    }
+  </script></body>
+</html>
