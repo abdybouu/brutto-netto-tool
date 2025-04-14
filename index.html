@@ -1,54 +1,99 @@
-<!DOCTYPE html><html lang="de">
+<!DOCTYPE html>
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Kostenloser Brutto-Netto-Rechner für Selbstständige und Freiberufler in Deutschland. Einfach, schnell & mobil optimiert." />
-  <meta name="keywords" content="Brutto Netto Rechner, Selbstständige, Steuerrechner, 2025, Deutschland" />
-  <meta name="author" content="Dein Name oder Marke" />
-  <title>Brutto-Netto-Rechner 2025 für Selbstständige</title>
+  <meta name="description" content="Brutto-Netto-Rechner 2025 – Schnell, genau und kostenlos für Selbstständige & Angestellte in Deutschland." />
+  <title>Brutto-Netto-Rechner 2025 | Abdy</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 text-gray-800">
-  <div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
-    <h1 class="text-2xl font-bold mb-4">Brutto-Netto-Rechner 2025</h1><p class="mb-4 text-sm text-gray-600">Berechne schnell und einfach Deinen Nettobetrag aus dem Bruttowert. Ideal für Selbstständige, Freelancer & Kleinunternehmer in Deutschland.</p>
+<body class="bg-gray-100 text-gray-800 font-sans">
+  <main class="max-w-2xl mx-auto mt-12 p-8 bg-white rounded-xl shadow-xl ring-1 ring-gray-200">
+    <h1 class="text-3xl font-bold text-center mb-6 text-blue-800">Brutto-Netto-Rechner 2025</h1>
 
-<label class="block mb-2">Bruttobetrag in Euro:</label>
-<input type="number" id="brutto" placeholder="z. B. 1000" class="w-full mb-4 p-2 border rounded" />
+    <div class="space-y-4">
+      <div>
+        <label for="brutto" class="font-medium">Bruttogehalt (monatlich) in €:</label>
+        <input id="brutto" type="number" class="w-full p-3 border rounded-lg mt-1" placeholder="z. B. 4000" />
+      </div>
 
-<label class="block mb-2">Mehrwertsteuersatz:</label>
-<select id="steuer" class="w-full mb-4 p-2 border rounded">
-  <option value="19">19% (Standard)</option>
-  <option value="7">7% (ermäßigt)</option>
-</select>
+      <div>
+        <label for="steuerklasse" class="font-medium">Steuerklasse:</label>
+        <select id="steuerklasse" class="w-full p-3 border rounded-lg mt-1">
+          <option value="1">I</option>
+          <option value="2">II</option>
+          <option value="3">III</option>
+          <option value="4">IV</option>
+          <option value="5">V</option>
+          <option value="6">VI</option>
+        </select>
+      </div>
 
-<button onclick="berechnen()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Berechnen</button>
+      <div>
+        <label for="bundesland" class="font-medium">Bundesland:</label>
+        <select id="bundesland" class="w-full p-3 border rounded-lg mt-1">
+          <option value="0">Bayern</option>
+          <option value="8">Baden-Württemberg</option>
+          <option value="9">Berlin</option>
+          <option value="9">NRW</option>
+          <option value="8">Hessen</option>
+          <!-- vereinfacht: 8% / 9% Kirchensteuer -->
+        </select>
+      </div>
 
-<div id="ergebnis" class="mt-6 text-lg font-medium text-green-700"></div>
+      <div>
+        <label for="kinder" class="font-medium">Kinderfreibeträge:</label>
+        <input id="kinder" type="number" min="0" max="10" class="w-full p-3 border rounded-lg mt-1" value="0" />
+      </div>
 
-<div class="mt-8 p-4 bg-green-50 border-l-4 border-green-400">
-  <h2 class="font-semibold">Tipp: Buchhaltung automatisieren</h2>
-  <p class="text-sm">Teste <a href="https://sevdesk.de?ref=DEINCODE" target="_blank" class="underline text-blue-700">sevDesk</a> kostenlos. Perfekt für Selbstständige und Kleinunternehmer. <strong>Affiliate-Link</strong></p>
-</div>
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="kirche" class="w-4 h-4" />
+        <label for="kirche">Kirchensteuerpflichtig</label>
+      </div>
 
-  </div>  <footer class="text-center text-xs text-gray-500 mt-10 mb-4">
-    &copy; 2025 BruttoNettoTool.de – Alle Rechte vorbehalten
-  </footer>  <script>
+      <button onclick="berechnen()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl mt-4">Berechnen</button>
+    </div>
+
+    <div id="ergebnis" class="mt-8 p-6 bg-blue-50 rounded-xl border-l-4 border-blue-400 hidden">
+      <!-- Ergebnis wird hier angezeigt -->
+    </div>
+  </main>
+
+  <footer class="text-center text-xs text-gray-500 mt-12 mb-6">
+    &copy; 2025 BruttoNettoTool.de – Erstellt von Abdy
+  </footer>
+
+  <script>
     function berechnen() {
       const brutto = parseFloat(document.getElementById("brutto").value);
-      const steuer = parseFloat(document.getElementById("steuer").value);
+      const steuerklasse = document.getElementById("steuerklasse").value;
+      const kinder = parseInt(document.getElementById("kinder").value);
+      const kirche = document.getElementById("kirche").checked;
+      const bundesland = parseInt(document.getElementById("bundesland").value);
 
       if (isNaN(brutto) || brutto <= 0) {
-        alert("Bitte einen gültigen Bruttobetrag eingeben.");
+        alert("Bitte gib einen gültigen Bruttobetrag ein.");
         return;
       }
 
-      const netto = brutto / (1 + steuer / 100);
-      const steuerBetrag = brutto - netto;
+      // Beispielhafte, vereinfachte Berechnung:
+      let steuerSatz = 0.20; // Grundwert
+      if (steuerklasse == 3) steuerSatz = 0.10;
+      if (steuerklasse == 5 || steuerklasse == 6) steuerSatz = 0.28;
+      if (kinder > 0) steuerSatz -= 0.01 * kinder;
+      if (kirche) steuerSatz += bundesland / 100;
 
-      document.getElementById("ergebnis").innerHTML = `
-        <p>Nettobetrag: <strong>${netto.toFixed(2)} €</strong></p>
-        <p>Mehrwertsteuer: <strong>${steuerBetrag.toFixed(2)} €</strong></p>
+      let netto = brutto * (1 - steuerSatz);
+      let abgaben = brutto - netto;
+
+      const ergebnis = document.getElementById("ergebnis");
+      ergebnis.classList.remove("hidden");
+      ergebnis.innerHTML = `
+        <p><strong>Nettogehalt:</strong> ${netto.toFixed(2)} €</p>
+        <p><strong>Abgaben gesamt:</strong> ${abgaben.toFixed(2)} €</p>
+        <p class="text-sm text-gray-500 mt-2">Berechnung vereinfacht auf Basis Steuerklasse & Freibeträge.</p>
       `;
     }
-  </script></body>
+  </script>
+</body>
 </html>
